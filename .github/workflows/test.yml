@@ -11,7 +11,6 @@ jobs:
   ###################################### CODECOV ###########################################
   codecov:
     name: Test Coverage
-    needs: docker-cache
     runs-on: ubuntu-latest
     steps:
       - name: Setup Actions
@@ -38,7 +37,6 @@ jobs:
     if: "contains(github.event.head_commit.message, 'run sonar')"
     name: SonarCloud
     runs-on: ubuntu-latest
-    needs: docker-cache
     steps:
       - name: Setup Actions
         uses: actions/checkout@v3
