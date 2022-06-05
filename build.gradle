@@ -2,6 +2,28 @@ plugins {
 	id 'org.springframework.boot' version '3.0.0-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+    id 'jacoco'
+    id 'org.sonarqube' version "3.3"
+}
+
+// ========================== Jacoco and Sonarqube config ================================
+
+// Getting Jacoco Test Report executable
+def allTestCoverageFile = "${rootProject.buildDir}/jacoco/allTestCoverage.exec" as Object
+task jacocoMerge(type: JacocoMerge, group: 'verification') {
+    destinationFile = file(allTestCoverageFile)
+    executionData = project.fileTree(dir: '.', include:'**/build/jacoco/test.exec')
+}
+
+//Sonar Config
+sonarqube {
+    properties {
+        property "sonar.projectKey", "lucasraziel_bookstore"
+        property "sonar.organization", "lucasraziel"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.qualitygate.wait", true
+        property "sonar.jacoco.reportPaths", allTestCoverageFile
+    }
 }
 
 group = 'com.bookstore'
@@ -28,11 +50,26 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+
+// ================================ Tests ================================
+// Configuration to jacoco produce xml
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+    }
+}
+
+jacoco { 
+    toolVersion = "0.8.8"    
+}
+
+test {
 	useJUnitPlatform()
 	testLogging {
         exceptionFormat "full"
         events "started", "skipped", "passed", "failed"
         showStandardStreams true
     }
+    finalizedBy jacocoTestReport
 }

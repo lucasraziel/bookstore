@@ -3,4 +3,4 @@
 # Run compose to up environment
 chmod +x ./gradlew
 
-./gradlew clean build
+./gradlew clean test 
