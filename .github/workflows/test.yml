@@ -34,7 +34,6 @@ jobs:
 
   ################################# SONAR CLOUD #############################################
   sonarcloud:
-    if: "contains(github.event.head_commit.message, 'run sonar')"
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
@@ -73,7 +72,6 @@ jobs:
 
   ############################# SNYK ###############################
   snyk:
-    if: "contains(github.event.head_commit.message, 'run snyk')"
     name: Security Check
     runs-on: ubuntu-latest
     continue-on-error: true
