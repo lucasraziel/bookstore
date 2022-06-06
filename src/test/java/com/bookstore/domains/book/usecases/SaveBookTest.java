@@ -11,8 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bookstore.domains.BusinessException;
+import com.bookstore.domains.EventEmitter;
+import com.bookstore.domains.Handler;
 import com.bookstore.domains.book.BookRepository;
 import com.bookstore.domains.book.entities.Book;
+import com.bookstore.domains.book.events.booksaved.handlers.SaveBookToRepository;
 import com.bookstore.domains.book.usecases.save.SaveBook;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.bookstore.domains.book.usecases.validations.save.SaveBookValidation;
@@ -31,7 +34,12 @@ class SaveBookTest {
         SaveBookValidation singleISBNValidation = new SingleISBNValidation(bookRepository);
         List<SaveBookValidation> saveBookValidations = new ArrayList<SaveBookValidation>();
         saveBookValidations.add(singleISBNValidation);
-        this.saveBook = new SaveBook(bookRepository, saveBookValidations);
+        EventEmitter eventEmitter = new EventEmitter();
+
+        List<Handler> handlers = new ArrayList<Handler>();
+        handlers.add(new SaveBookToRepository(bookRepository));
+        eventEmitter.register("BookSaved", handlers);
+        this.saveBook = new SaveBook(eventEmitter, saveBookValidations);
     }
 
     @DisplayName("Should save a book")
