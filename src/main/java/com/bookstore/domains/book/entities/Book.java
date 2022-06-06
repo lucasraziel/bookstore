@@ -1,6 +1,6 @@
-package com.bookstore.domains.book;
+package com.bookstore.domains.book.entities;
 
-public record Book(String title, String author, String isbn, Integer price, String id) {
+public record Book(String author, String id, String isbn, Integer price, String title) {
 
     @Override
     public boolean equals(Object o) {

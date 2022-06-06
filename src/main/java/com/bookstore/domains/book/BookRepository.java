@@ -3,6 +3,8 @@ package com.bookstore.domains.book;
 import java.util.List;
 import java.util.Optional;
 
+import com.bookstore.domains.book.entities.Book;
+
 public interface BookRepository {
 
     Book save(Book book);

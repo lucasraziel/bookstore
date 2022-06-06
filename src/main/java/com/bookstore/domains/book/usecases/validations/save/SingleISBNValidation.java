@@ -1,8 +1,8 @@
 package com.bookstore.domains.book.usecases.validations.save;
 
 import com.bookstore.domains.BusinessException;
-import com.bookstore.domains.book.Book;
 import com.bookstore.domains.book.BookRepository;
+import com.bookstore.domains.book.entities.Book;
 
 public class SingleISBNValidation implements SaveBookValidation {
 

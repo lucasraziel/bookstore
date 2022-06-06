@@ -3,7 +3,7 @@ package com.bookstore.domains.book.usecases.save;
 import java.util.List;
 import com.bookstore.domains.book.usecases.validations.save.SaveBookValidation;
 import com.bookstore.domains.book.BookRepository;
-import com.bookstore.domains.book.Book;
+import com.bookstore.domains.book.entities.Book;
 
 public class SaveBook {
 
