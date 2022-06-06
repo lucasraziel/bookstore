@@ -64,7 +64,7 @@ test {
     }
     finalizedBy jacocoTestReport
 }
-project.tasks["sonarqube"].dependsOn "test"
+project.tasks["sonarqube"].dependsOn "jacocoTestReport"
 
 //Sonar Config
 sonarqube {
