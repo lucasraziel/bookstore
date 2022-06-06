@@ -2,11 +2,16 @@ package com.bookstore.domains;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Event<T extends DataEvent> {
-    public String eventId;
+    String eventId;
 
-    public Date eventDate;
+    Date eventDate;
 
-    public T eventData;
+    T eventData;
 
 }

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 record EventRegistered(String eventId, List<Handler> handlers) {
-};
+}
 
 public class EventEmitter {
     private List<EventRegistered> eventsRegistered;
 
     public EventEmitter() {
-        this.eventsRegistered = new ArrayList<EventRegistered>();
+        this.eventsRegistered = new ArrayList<>();
     }
 
     public void register(String eventId, List<Handler> handlers) {

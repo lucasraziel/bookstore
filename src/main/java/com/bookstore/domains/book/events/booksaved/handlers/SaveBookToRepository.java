@@ -15,8 +15,8 @@ public class SaveBookToRepository implements Handler {
 
     @Override
     public void handle(Event<? extends DataEvent> event) {
-        if (event.eventData instanceof BookSavedData) {
-            BookSavedData eventData = (BookSavedData) event.eventData;
+        if (event.getEventData() instanceof BookSavedData) {
+            BookSavedData eventData = (BookSavedData) event.getEventData();
             this.bookRepository.save(eventData.book());
         }
 
