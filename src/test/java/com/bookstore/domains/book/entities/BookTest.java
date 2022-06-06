@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("entity: Book, Domain: Book")
-public class BookTest {
+class BookTest {
 
     private Book book;
 
@@ -97,7 +97,7 @@ public class BookTest {
     @DisplayName("should not be equal to null")
     @Test
     void shouldNotBeEqualToNull() {
-        assertNotEquals(book, null);
+        assertNotEquals(null, book);
     }
 
     @DisplayName("should not be equal to another class")
