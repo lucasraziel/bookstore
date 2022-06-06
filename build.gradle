@@ -15,16 +15,7 @@ task jacocoMerge(type: JacocoMerge, group: 'verification') {
     executionData = project.fileTree(dir: '.', include:'**/build/jacoco/test.exec')
 }
 
-//Sonar Config
-sonarqube {
-    properties {
-        property "sonar.projectKey", "lucasraziel_bookstore"
-        property "sonar.organization", "lucasraziel"
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.qualitygate.wait", true
-        property "sonar.jacoco.reportPaths", allTestCoverageFile
-    }
-}
+
 
 group = 'com.bookstore'
 version = '0.0.1-SNAPSHOT'
@@ -72,4 +63,16 @@ test {
         showStandardStreams true
     }
     finalizedBy jacocoTestReport
+}
+project.tasks["sonarqube"].dependsOn "anotherTask"
+
+//Sonar Config
+sonarqube {
+    properties {
+        property "sonar.projectKey", "lucasraziel_bookstore"
+        property "sonar.organization", "lucasraziel"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.qualitygate.wait", true
+        property "sonar.jacoco.reportPaths", allTestCoverageFile
+    }
 }
