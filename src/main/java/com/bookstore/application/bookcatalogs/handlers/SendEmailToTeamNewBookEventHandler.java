@@ -1,5 +1,8 @@
 package com.bookstore.application.bookcatalogs.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bookstore.adapters.services.email.EmailService;
 import com.bookstore.adapters.services.email.entity.Email;
 import com.bookstore.application.shared.DataEvent;
@@ -24,7 +27,7 @@ public class SendEmailToTeamNewBookEventHandler implements Handler {
             String from = "storageteam@bookstore.com";
             String to = "sellerteam@bookstore.com";
             String subject = "New Book saved";
-            String[] atachments = new String[0];
+            List<String> atachments = new ArrayList<>();
             String message = "New Book Created: " + eventData.book().toString();
             Email email = new Email(to, from, message, subject, atachments);
 

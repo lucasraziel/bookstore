@@ -1,5 +1,7 @@
 package com.bookstore.adapters.services.email.entity;
 
-public record Email(String to, String from, String message, String subject, String[] atachments) {
+import java.util.List;
+
+public record Email(String to, String from, String message, String subject, List<String> atachments) {
 
 }
