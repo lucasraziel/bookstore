@@ -10,16 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.bookstore.domains.BusinessException;
-import com.bookstore.domains.EventEmitter;
-import com.bookstore.domains.Handler;
-import com.bookstore.domains.book.BookRepository;
-import com.bookstore.domains.book.entities.Book;
-import com.bookstore.domains.book.events.booksaved.handlers.SaveBookToRepository;
-import com.bookstore.domains.book.usecases.save.SaveBook;
+import com.bookstore.adapters.services.email.EmailService;
+import com.bookstore.adapters.services.email.entity.Email;
+import com.bookstore.application.bookcatalogs.handlers.SendEmailToTeamNewBookEventHandler;
+import com.bookstore.application.shared.BusinessException;
+import com.bookstore.application.shared.EventEmitter;
+import com.bookstore.application.shared.Handler;
+import com.bookstore.application.storemanagement.usecases.save.SaveBook;
+import com.bookstore.application.storemanagement.usecases.validations.save.SaveBookValidation;
+import com.bookstore.application.storemanagement.usecases.validations.save.SingleISBNValidation;
+import com.bookstore.domains.storemanagement.aggregations.book.entities.Book;
+import com.bookstore.domains.storemanagement.repositories.BookRepository;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.bookstore.domains.book.usecases.validations.save.SaveBookValidation;
-import com.bookstore.domains.book.usecases.validations.save.SingleISBNValidation;
 
 @DisplayName("Use Case: Save Book, Domain: Book")
 class SaveBookTest {
@@ -27,6 +30,8 @@ class SaveBookTest {
     private SaveBook saveBook;
 
     private BookRepository bookRepository;
+
+    private EmailService emailService;
 
     @BeforeEach
     void setup() {
@@ -36,10 +41,14 @@ class SaveBookTest {
         saveBookValidations.add(singleISBNValidation);
         EventEmitter eventEmitter = new EventEmitter();
 
+        this.emailService = mock(EmailService.class);
+
+        Handler sendEmailToTeamNewBookEventHandler = new SendEmailToTeamNewBookEventHandler(emailService);
+
         List<Handler> handlers = new ArrayList<Handler>();
-        handlers.add(new SaveBookToRepository(bookRepository));
+        handlers.add(sendEmailToTeamNewBookEventHandler);
         eventEmitter.register("BookSaved", handlers);
-        this.saveBook = new SaveBook(eventEmitter, saveBookValidations);
+        this.saveBook = new SaveBook(eventEmitter, saveBookValidations, bookRepository);
     }
 
     @DisplayName("Should save a book")
@@ -52,6 +61,7 @@ class SaveBookTest {
         this.saveBook.save(book);
         verify(bookRepository, times(1)).save(book);
         verify(bookRepository, times(1)).findByIsbn(book.isbn());
+        verify(this.emailService, atLeastOnce()).send(any(Email.class));
     }
 
     @DisplayName("Should thrown an error when ISBN exists")

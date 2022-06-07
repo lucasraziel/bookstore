@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.bookstore.domains.storemanagement.aggregations.book.entities.Book;
+
 @DisplayName("entity: Book, Domain: Book")
 class BookTest {
 
