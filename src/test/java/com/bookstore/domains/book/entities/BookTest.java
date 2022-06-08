@@ -16,52 +16,54 @@ class BookTest {
 
     @BeforeEach
     void setup() {
-        this.book = new Book("J.R.R. Tolkien", "1213232", "123456789", 1954,
+        this.book = new Book("J.R.R. Tolkien", "123456789", 1954,
                 "The Lord of the Rings");
     }
 
     @DisplayName("should have a title")
     @Test
     void shouldHaveATitle() {
-        assertEquals("The Lord of the Rings", book.title());
+        assertEquals("The Lord of the Rings", book.getTitle());
     }
 
     @DisplayName("should have an ISBN")
     @Test
     void shouldHaveAnISBN() {
-        assertEquals("123456789", book.isbn());
+        assertEquals("123456789", book.getIsbn());
     }
 
     @DisplayName("should have an author")
     @Test
     void shouldHaveAnAuthor() {
-        assertEquals("J.R.R. Tolkien", book.author());
+        assertEquals("J.R.R. Tolkien", book.getAuthor());
     }
 
     @DisplayName("should have a price")
     @Test
     void shouldHaveAPrice() {
-        assertEquals(1954, book.price());
+        assertEquals(1954, book.getPrice());
     }
 
     @DisplayName("should have an id")
     @Test
     void shouldHaveAnId() {
-        assertEquals("1213232", book.id());
+        book.setId("1213232");
+        assertEquals("1213232", book.getId());
     }
 
     @DisplayName("should be equal to another book with the same id and isbn")
     @Test
     void shouldBeEqualToAnotherBookWithTheSameIdAndIsbn() {
-        Book anotherBook = new Book("J.R.R. Tolkien", "1213232", "123456789",
+        Book anotherBook = new Book("J.R.R. Tolkien", "123456789",
                 1954, "The Lord of the Rings");
-        assertEquals(book, anotherBook);
+        this.book.setId(anotherBook.getId());
+        assertEquals(this.book, anotherBook);
     }
 
     @DisplayName("should have a hash code")
     @Test
     void shouldHaveAHashCode() {
-        int result = "1213232".hashCode();
+        int result = book.getId().hashCode();
         result = 31 * result + "123456789".hashCode();
         assertEquals(result, book.hashCode());
     }
@@ -70,14 +72,15 @@ class BookTest {
     @Test
     void shouldBeConvertedToAString() {
         assertEquals(
-                "Book{title='The Lord of the Rings', author='J.R.R. Tolkien', isbn='123456789', price=1954, id='1213232'}",
+                "Book{title='The Lord of the Rings', author='J.R.R. Tolkien', isbn='123456789', price=1954, id='"
+                        + book.getId() + "'}",
                 book.toString());
     }
 
     @DisplayName("should not be equal to another book with different id")
     @Test
     void shouldNotBeEqualToAnotherBookWithDifferentId() {
-        Book anotherBook = new Book("J.R.R. Tolkien", "1213233", "123456789",
+        Book anotherBook = new Book("J.R.R. Tolkien", "123456789",
                 1954, "The Lord of the Rings");
         assertNotEquals(book, anotherBook);
     }
@@ -85,8 +88,10 @@ class BookTest {
     @DisplayName("should not be equal to another book with different isbn")
     @Test
     void shouldNotBeEqualToAnotherBookWithDifferentIsbn() {
-        Book anotherBook = new Book("J.R.R. Tolkien", "1213232", "123456783",
+        Book anotherBook = new Book("J.R.R. Tolkien", "123456783",
                 1954, "The Lord of the Rings");
+
+        anotherBook.setId("1213232");
         assertNotEquals(book, anotherBook);
     }
 

@@ -2,19 +2,19 @@ package com.bookstore.application.storemanagement.usecases.validations.save;
 
 import com.bookstore.application.shared.BusinessException;
 import com.bookstore.domains.storemanagement.aggregations.book.entities.Book;
-import com.bookstore.domains.storemanagement.repositories.BookRepository;
+import com.bookstore.domains.storemanagement.repositories.IBookRepository;
 
 public class SingleISBNValidation implements SaveBookValidation {
 
-    private final BookRepository bookRepository;
+    private final IBookRepository bookRepository;
 
-    public SingleISBNValidation(BookRepository bookRepository) {
+    public SingleISBNValidation(IBookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     @Override
     public boolean validate(Book book) {
-        boolean isThereABook = !this.bookRepository.findByIsbn(book.isbn()).isEmpty();
+        boolean isThereABook = !this.bookRepository.findByIsbn(book.getIsbn()).isEmpty();
 
         if (!isThereABook) {
             return true;

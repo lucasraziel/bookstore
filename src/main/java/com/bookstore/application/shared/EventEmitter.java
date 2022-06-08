@@ -1,28 +1,26 @@
 package com.bookstore.application.shared;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 record EventRegistered(String eventId, List<Handler> handlers) {
 }
 
 public class EventEmitter {
-    private List<EventRegistered> eventsRegistered;
+    private Map<String, List<Handler>> eventsRegistered;
 
     public EventEmitter() {
-        this.eventsRegistered = new ArrayList<>();
+        this.eventsRegistered = new HashMap<>();
     }
 
     public void register(String eventId, List<Handler> handlers) {
-        this.eventsRegistered.add(new EventRegistered(eventId, handlers));
+
+        this.eventsRegistered.put(eventId, handlers);
     }
 
     public void emit(Event<?> event) {
-        for (EventRegistered eventRegistered : this.eventsRegistered) {
-            if (eventRegistered.eventId().equals(event.getEventId())) {
-                eventRegistered.handlers().forEach(handler -> handler.handle(event));
-                break;
-            }
-        }
+        List<Handler> handlers = this.eventsRegistered.get(event.getEventId());
+        handlers.forEach(handler -> handler.handle(event));
     }
 }

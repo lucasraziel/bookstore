@@ -1,13 +1,29 @@
 package com.bookstore.domains.storemanagement.aggregations.book.entities;
 
+import java.util.UUID;
+
 import com.bookstore.domains.storemanagement.shared.Entity;
 
-public record Book(
-        String author,
-        String id,
-        String isbn,
-        Integer price,
-        String title) implements Entity {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Book implements Entity {
+
+    String author;
+    String title;
+    String isbn;
+    Integer price;
+    String id;
+
+    public Book(String author, String isbn, Integer price, String title) {
+        this.author = author;
+        this.isbn = isbn;
+        this.price = price;
+        this.title = title;
+        this.id = UUID.randomUUID().toString();
+    }
 
     @Override
     public boolean equals(Object o) {

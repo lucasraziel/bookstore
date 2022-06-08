@@ -6,6 +6,8 @@ plugins {
     id 'org.sonarqube' version "3.3"
 }
 
+compileJava.options.encoding = 'UTF-8'
+
 // ========================== Jacoco and Sonarqube config ================================
 
 // Getting Jacoco Test Report executable
@@ -34,7 +36,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'

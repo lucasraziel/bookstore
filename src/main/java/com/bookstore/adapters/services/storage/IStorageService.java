@@ -1,6 +1,6 @@
 package com.bookstore.adapters.services.storage;
 
-public interface StorageSercive {
+public interface IStorageService {
 
     public void save(String fileName, byte[] data);
 
