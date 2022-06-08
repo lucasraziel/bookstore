@@ -22,7 +22,7 @@ public class BookRepository implements IBookRepository {
     @Override
     public Optional<Book> findByIsbn(String isbn) {
         log.info("Searching for book with isbn: {}", isbn);
-        return null;
+        return Optional.empty();
     }
 
 }

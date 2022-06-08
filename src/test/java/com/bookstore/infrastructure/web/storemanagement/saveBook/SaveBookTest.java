@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 @WebMvcTest(BookControllerAdapter.class)
-public class SaveBookTest {
+class SaveBookTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,7 +30,7 @@ public class SaveBookTest {
             MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
     @Test
-    public void postBookShouldReturnABook() throws Exception {
+    void postBookShouldReturnABook() throws Exception {
         CreateBookData createBookData = new CreateBookData("title", "isbn", "author", 1234);
 
         ObjectMapper mapper = new ObjectMapper();

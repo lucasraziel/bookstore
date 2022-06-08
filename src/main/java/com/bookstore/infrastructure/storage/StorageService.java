@@ -18,7 +18,7 @@ public class StorageService implements IStorageService {
     @Override
     public byte[] load(String fileName) {
         log.info("Loading file: {}", fileName);
-        return null;
+        return new byte[0];
     }
 
     @Override
