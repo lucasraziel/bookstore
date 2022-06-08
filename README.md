@@ -32,11 +32,22 @@ One exception is snyk, which sometimes have some problems that can't be solved n
 
 ##### User Stories
 
-TODO Add User Stories Here
+[Create Storage Plan](https://github.com/lucasraziel/bookstore/blob/063bf09b6762473cf453d6c7cfb287471e2c7a73/userstories/createStoragePlan.md)
 
 ##### Diagrams
 
-TODO Add User Stories Here
+Use Case for Create Storage Plan
+
+![logo](https://user-images.githubusercontent.com/26093830/172564307-ddc56fcf-3c3b-4127-bc5c-6b626bcdb2fa.jpeg)
+#### <p align="center"> Running </p>
+
+Context Map
+
+![logo](https://user-images.githubusercontent.com/26093830/172564202-7cde416e-b932-4fb3-a4f2-178e805d222a.png)
+
+Entities for Create User Repsitory
+
+![logo](https://user-images.githubusercontent.com/26093830/172564376-41198f82-1172-462f-8685-f46e5a4c9bb9.png)
 
 #### <p align="center"> Running </p>
 
